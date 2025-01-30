@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín 💖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?valentine,heart,love') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            width: 320px;
+            transition: all 0.5s ease-in-out;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="step1">
+        <h2>💖 ¿Cuál es tu nombre? 💖</h2>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre">
+        <button onclick="nextStep()">Siguiente</button>
+    </div>
+
+    <div class="container hidden" id="step2">
+        <h2 id="pregunta"></h2>
+        <form id="valentineForm" action="https://formspree.io/f/xdkaznyr" method="POST">
+            <input type="hidden" name="nombre" id="nombreInput">
+            <input type="hidden" name="respuesta" id="respuestaInput">
+            <button type="button" onclick="sendAnswer('Sí 💘')">Sí 💘</button>
+            <button type="button" onclick="sendAnswer('No 💔')">No 💔</button>
+        </form>
+    </div>
+
+    <script>
+        function nextStep() {
+            let nombre = document.getElementById("nombre").value.trim();
+            if (nombre === "") {
+                alert("Por favor, ingresa tu nombre.");
+                return;
+            }
+            document.getElementById("step1").classList.add("hidden");
+            document.getElementById("step2").classList.remove("hidden");
+            document.getElementById("pregunta").innerText = nombre + ", ¿quieres ser mi San Valentín?";
+            document.getElementById("nombreInput").value = nombre;
+        }
+
+        function sendAnswer(respuesta) {
+            document.getElementById("respuestaInput").value = respuesta;
+            document.getElementById("valentineForm").submit();
+            alert("Respuesta enviada 💌");
+        }
+    </script>
+
+</body>
+</html>
+
